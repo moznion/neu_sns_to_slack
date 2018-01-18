@@ -22,7 +22,7 @@ Getting started
 ### 1. Setup environment variables
 
 |name|description|mandatory|
-|:--:|:---------:|:-------|
+|----|-----------|--------|
 |SLACK_WEBHOOK_PATH|Path of Slack webhook (e.g. `/services/XXX/XXX/XXX`)|:white_check_mark:|
 |DEFAULT_SLACK_CHANNEL|A channel name that is used when destination channel is missing (default: null)||
 |SLACK_USER_NAME|A Slack user name that is displayed as sender (default: `SNS2Slack`)||

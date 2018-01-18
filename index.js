@@ -7,7 +7,10 @@ const good = 'good';
 const warning = 'warning';
 const danger = 'danger';
 
-const channelConfig = JSON.parse(fs.readFileSync('./channel.config.json'));
+const defaultChannelConfigJSONFilePath = './channel.config.json';
+const defaultSlackUsername = 'SNS2Slack';
+
+const channelConfig = JSON.parse(fs.readFileSync(decideChannelConfigJSONFilePath()));
 
 const dangerMessagesRegexp = messages2regexp([
   ' but with errors',
@@ -111,7 +114,7 @@ function decideDestinationChannel(topicArn) {
 function getUsername() {
   const username = process.env.SLACK_USER_NAME;
   if (username === undefined) {
-    return 'SNS2Slack';
+    return defaultSlackUsername;
   }
 
   return username;
@@ -119,4 +122,13 @@ function getUsername() {
 
 function decorateBold(text) {
   return '*' + text + '*';
+}
+
+function decideChannelConfigJSONFilePath() {
+  const channelConfigJSONFilePath = process.env.CHANNEL_CONFIG_JSON_FILE_PATH;
+  if (channelConfigJSONPath === undefined) {
+    return defaultChannelConfigJSONFilePath;
+  }
+
+  return channelConfigJSONFilePath;
 }

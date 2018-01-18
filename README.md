@@ -8,6 +8,8 @@ Features
 
 - Relays the message to Slack from SNS topic.
 - It can change the destination of Slack according to SNS Topic ARN.
+- Categorize the severity of the message according to message contents and colorize it.
+  - using regexp :p
 
 Mechanism
 --

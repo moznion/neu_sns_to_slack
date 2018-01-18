@@ -49,6 +49,10 @@ This configuration file must be located on the same directory of `index.js`.
 - index.js
 - channel.config.json
 
+### 4. Add the SNS trigger into Lambda trigger
+
+Add the SNS Topic into Lambda function's trigger.
+
 See also
 --
 

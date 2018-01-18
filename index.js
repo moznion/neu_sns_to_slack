@@ -126,7 +126,7 @@ function decorateBold(text) {
 
 function decideChannelConfigJSONFilePath() {
   const channelConfigJSONFilePath = process.env.CHANNEL_CONFIG_JSON_FILE_PATH;
-  if (channelConfigJSONPath === undefined) {
+  if (channelConfigJSONFilePath === undefined) {
     return defaultChannelConfigJSONFilePath;
   }
 

@@ -24,7 +24,8 @@ const dangerMessagesRegexp = messages2regexp([
   'Stack deletion failed',
   'Unsuccessful command execution',
   'You do not have permission',
-  'Your quota allows for 0 more running instance'
+  'Your quota allows for 0 more running instance',
+  'Info to Severe'
 ]);
 
 const warningMessageRegexp = messages2regexp([

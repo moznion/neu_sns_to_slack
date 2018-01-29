@@ -25,7 +25,8 @@ const dangerMessagesRegexp = messages2regexp([
   'Unsuccessful command execution',
   'You do not have permission',
   'Your quota allows for 0 more running instance',
-  'Info to Severe'
+  'Info to Severe',
+  'No Data to Severe'
 ]);
 
 const warningMessageRegexp = messages2regexp([
@@ -37,6 +38,7 @@ const warningMessageRegexp = messages2regexp([
   'is currently running under desired capacity',
   'Ok to Info',
   'Ok to Warning',
+  'Info to No Data',
   'Pending Initialization',
   'Removed instance ',
   'Rollback of environment'

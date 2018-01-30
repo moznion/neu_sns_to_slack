@@ -27,7 +27,9 @@ const dangerMessagesRegexp = messages2regexp([
   'Your quota allows for 0 more running instance',
   'Info to Severe',
   'No Data to Severe',
-  'Ok to Severe'
+  'Ok to Severe',
+  'Ok to Degraded',
+  'Degraded to Severe'
 ]);
 
 const warningMessageRegexp = messages2regexp([

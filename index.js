@@ -29,6 +29,7 @@ const dangerMessagesRegexp = messages2regexp([
   'No Data to Severe',
   'Ok to Severe',
   'Ok to Degraded',
+  'Info to Degraded',
   'Degraded to Severe'
 ]);
 

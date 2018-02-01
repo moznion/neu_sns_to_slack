@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./",
-    "bundle": "browserify --node index.js -o bundle.js"
+    "bundle": "browserify --node --standalone 'lambda' index.js -o bundle.js"
   },
   "dependencies": {
     "aws_eb_message_severity": "^0.0.3"

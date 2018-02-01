@@ -3,7 +3,7 @@
 const https = require('https');
 const fs = require('fs');
 const util = require('util');
-const EBMessageSeverity = require('aws_eb_message_severity');
+const EBMessageSeverityClassifier = require('aws_eb_message_severity').default;
 
 const good = 'good';
 const warning = 'warning';
@@ -59,11 +59,11 @@ exports.handler = (event, context, callback) => {
 };
 
 function decideSeverity(message) {
-  if (EBMessageSeverity.isDangerMessage(message)) {
+  if (EBMessageSeverityClassifier.isDangerMessage(message)) {
     return danger;
   }
 
-  if (EBMessageSeverity.isWarningMessage(message)) {
+  if (EBMessageSeverityClassifier.isWarningMessage(message)) {
     return warning;
   }
 

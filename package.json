@@ -1,0 +1,18 @@
+{
+  "name": "neu_sns_to_slack",
+  "version": "1.0.0",
+  "description": "An AWS lambda function to relay the message to Slack from AWS SNS",
+  "main": "index.js",
+  "repository": "git@github.com:moznion/neu_sns_to_slack.git",
+  "author": "moznion <moznion@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./"
+  },
+  "dependencies": {
+    "aws_eb_message_severity": "^0.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0"
+  }
+}

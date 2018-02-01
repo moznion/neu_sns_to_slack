@@ -1,7 +1,9 @@
+'use strict';
+
 const https = require('https');
-const url = require('url');
 const fs = require('fs');
 const util = require('util');
+const EBMessageSeverity = require('aws_eb_message_severity');
 
 const good = 'good';
 const warning = 'warning';
@@ -11,43 +13,6 @@ const defaultChannelConfigJSONFilePath = './channel.config.json';
 const defaultSlackUsername = 'SNS2Slack';
 
 const channelConfig = JSON.parse(fs.readFileSync(decideChannelConfigJSONFilePath()));
-
-const dangerMessagesRegexp = messages2regexp([
-  ' but with errors',
-  ' to RED',
-  'During an aborted deployment',
-  'Failed to deploy application',
-  'Failed to deploy configuration',
-  'has a dependent object',
-  'is not authorized to perform',
-  'Pending to Degraded',
-  'Stack deletion failed',
-  'Unsuccessful command execution',
-  'You do not have permission',
-  'Your quota allows for 0 more running instance',
-  'Info to Severe',
-  'No Data to Severe',
-  'Ok to Severe',
-  'Ok to Degraded',
-  'Info to Degraded',
-  'Degraded to Severe'
-]);
-
-const warningMessageRegexp = messages2regexp([
-  ' aborted operation.',
-  ' to YELLOW',
-  'Adding instance ',
-  'Degraded to Info',
-  'Deleting SNS topic',
-  'is currently running under desired capacity',
-  'Ok to Info',
-  'Ok to Warning',
-  'Info to No Data',
-  'Ok to No Data',
-  'Pending Initialization',
-  'Removed instance ',
-  'Rollback of environment'
-]);
 
 exports.handler = (event, context, callback) => {
   const sns = event.Records[0].Sns;
@@ -67,18 +32,18 @@ exports.handler = (event, context, callback) => {
       'Content-Type': 'application/json'
     }
   }, (res) => {
-    res.on('data', (chunk) => {
+    res.on('data', () => {
       callback(null, 'OK');
     });
   });
 
   req.on('error', (e) => {
-    callback('Failed to post slack' + e.message)
+    callback('Failed to post slack' + e.message);
   });
 
   const message = sns.Message;
 
-  req.write(util.format("%j", {
+  req.write(util.format('%j', {
     'channel': channel,
     'username': getUsername(),
     'text': decorateBold(sns.Subject),
@@ -93,17 +58,12 @@ exports.handler = (event, context, callback) => {
   req.end();
 };
 
-function messages2regexp(messages) {
-  // XXX this function cannot handle the regexp special charactors!
-  return new RegExp('(?:' + messages.join('|') + ')');
-}
-
 function decideSeverity(message) {
-  if (dangerMessagesRegexp.test(message)) {
+  if (EBMessageSeverity.isDangerMessage(message)) {
     return danger;
   }
 
-  if (warningMessageRegexp.test(message)) {
+  if (EBMessageSeverity.isWarningMessage(message)) {
     return warning;
   }
 

@@ -7,12 +7,14 @@
   "author": "moznion <moznion@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "bundle": "browserify --node index.js -o bundle.js"
   },
   "dependencies": {
     "aws_eb_message_severity": "^0.0.3"
   },
   "devDependencies": {
+    "browserify": "^15.2.0",
     "eslint": "^4.16.0"
   }
 }

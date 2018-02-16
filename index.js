@@ -42,6 +42,8 @@ exports.handler = (event, context, callback) => {
   });
 
   const message = sns.Message;
+  const severity = decideSeverity(message);
+  const prefix = getPrefixBySeverity(topicArn, severity);
 
   req.write(util.format('%j', {
     'channel': channel,
@@ -50,8 +52,8 @@ exports.handler = (event, context, callback) => {
     'icon_emoji': ':sns:',
     'attachments': [
       {
-        'color': decideSeverity(message),
-        'text': message
+        'color': severity,
+        'text': prefix + ' ' + message
       }
     ]
   }));
@@ -104,4 +106,19 @@ function decideChannelConfigJSONFilePath() {
   }
 
   return channelConfigJSONFilePath;
+}
+
+function getPrefixBySeverity(topicArn, severity) {
+  const channelSetting = channelConfig[topicArn];
+  if (channelSetting === undefined) {
+    return '';
+  }
+
+  const prefixSetting = channelSetting['prefix'];
+  if (prefixSetting === undefined) {
+    return '';
+  }
+
+  const prefix = prefixSetting[severity];
+  return prefix === undefined ? '' : prefix;
 }

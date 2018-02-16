@@ -1,6 +1,13 @@
 {
   "arn:aws:sns:ap-northeast-1:000000000000:XXXXX": {
-    "name": "#my_channel"
+    "name": "#my_channel",
+    "prefix": {
+      "good": "",
+      "warning": "<!channel>",
+      "danger": "<!channel>"
+    }
   },
-  "arn:aws:sns:ap-northeast-1:000000000000:YYYYY": "#your_channel"
+  "arn:aws:sns:ap-northeast-1:000000000000:YYYYY": {
+    "name": "#your_channel"
+  }
 }

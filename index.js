@@ -71,7 +71,12 @@ function decideSeverity(message) {
 }
 
 function decideDestinationChannel(topicArn) {
-  const channel = channelConfig[topicArn];
+  const channelSetting = channelConfig[topicArn];
+  if (channelSetting === undefined) {
+    return process.env.DEFAULT_SLACK_CHANNEL;
+  }
+
+  const channel = channelSetting['name'];
   if (channel === undefined) {
     return process.env.DEFAULT_SLACK_CHANNEL;
   }

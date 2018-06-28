@@ -9,8 +9,8 @@ const good = 'good';
 const warning = 'warning';
 const danger = 'danger';
 
-const alarmRegex = /^ALARM:/;
-const insufficientDataRegex = /^INSUFFICIENT_DATA:/;
+const alarmRegex = /ALARM:/;
+const insufficientDataRegex = /INSUFFICIENT_DATA:/;
 
 const defaultChannelConfigJSONFilePath = './channel.config.json';
 const defaultSlackUsername = 'SNS2Slack';

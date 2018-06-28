@@ -9,6 +9,9 @@ const good = 'good';
 const warning = 'warning';
 const danger = 'danger';
 
+const alarmRegex = /^ALARM:/;
+const insufficientDataRegex = /^INSUFFICIENT_DATA:/;
+
 const defaultChannelConfigJSONFilePath = './channel.config.json';
 const defaultSlackUsername = 'SNS2Slack';
 
@@ -61,11 +64,11 @@ exports.handler = (event, context, callback) => {
 };
 
 function decideSeverity(message) {
-  if (EBMessageSeverityClassifier.isDangerMessage(message)) {
+  if (EBMessageSeverityClassifier.isDangerMessage(message) || alarmRegex.test(message)) {
     return danger;
   }
 
-  if (EBMessageSeverityClassifier.isWarningMessage(message)) {
+  if (EBMessageSeverityClassifier.isWarningMessage(message) || insufficientDataRegex.test(message)) {
     return warning;
   }
 

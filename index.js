@@ -9,8 +9,8 @@ const good = 'good';
 const warning = 'warning';
 const danger = 'danger';
 
-const alarmRegex = /ALARM:/;
-const insufficientDataRegex = /INSUFFICIENT_DATA:/;
+const alarmRegex = /^ALARM:/;
+const insufficientDataRegex = /^INSUFFICIENT_DATA:/;
 
 const defaultChannelConfigJSONFilePath = './channel.config.json';
 const defaultSlackUsername = 'SNS2Slack';
@@ -45,13 +45,14 @@ exports.handler = (event, context, callback) => {
   });
 
   const message = sns.Message;
-  const severity = decideSeverity(message);
+  const subject = sns.Subject;
+  const severity = decideSeverity(subject);
   const prefix = getPrefixBySeverity(topicArn, severity);
 
   req.write(util.format('%j', {
     'channel': channel,
     'username': getUsername(),
-    'text': decorateBold(sns.Subject),
+    'text': decorateBold(subject),
     'icon_emoji': ':sns:',
     'attachments': [
       {
